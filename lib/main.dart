@@ -1,4 +1,5 @@
 import 'package:bingo_jogador/firebase/presentation/home_screen.dart';
+import 'package:bingo_jogador/firebase/presentation/lista_sorteios_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const ListaSorteioScreen(),
     );
   }
 }
