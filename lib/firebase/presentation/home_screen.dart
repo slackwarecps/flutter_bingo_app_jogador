@@ -54,17 +54,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   listListins.length,
                   (index) {
                     Listin model = listListins[index];
-                    return ListTile(
-                      onTap: (){
-                        print('clicou');
-                      },
-                      onLongPress: () { 
-                        print('segurou');
-                        showFormModal(model: model);
+                    return Dismissible(
+                      key: Key(model.id),
+                      child: ListTile(
+                        onTap: (){
+                          print('clicou');
                         },
-                      leading: const Icon(Icons.list_alt_rounded),
-                      title: Text(model.name),
-                      subtitle: Text(model.id),
+                        onLongPress: () { 
+                          print('segurou');
+                          showFormModal(model: model);
+                          },
+                          
+                        leading: const Icon(Icons.list_alt_rounded),
+                        title: Text(model.name),
+                        subtitle: Text(model.id),
+                      ),
                     );
                   },
                 ),
