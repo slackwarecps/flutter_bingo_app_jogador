@@ -1,5 +1,7 @@
 import 'package:bingo_jogador/firebase/models/listin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Listin(id: "L001", name: "Feira de Outubro"),
     Listin(id: "L002", name: "Feira de Novembro"),
   ];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +105,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ElevatedButton(
                       onPressed: () {
                         //TODO: Implementar adição
+                       // buttonSalvarListin(nameController.text);
+                           Listin listin = Listin(
+                            id: const Uuid().v1(), 
+                            name: nameController.text,);
+                    
+
+                        firestore.collection("listins").doc(listin.id).set(listin.toMap());
+                        Navigator.pop(context);
+                     
+                     
                       },
                       child: Text(confirmationButton)),
                 ],
@@ -112,4 +125,15 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+}
+
+void buttonSalvarListin(String nome) {
+  print('clicou em salvar');
+
+    Listin listin = Listin(
+                        id: const Uuid().v1(), 
+                        name: nome,
+                        );
+               //       firestore.collection("listins").doc(listin.id).set(data);
+
 }
