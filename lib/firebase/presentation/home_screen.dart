@@ -12,11 +12,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Listin> listListins = [
+  List<Listin> listListins = [
     Listin(id: "L001", name: "Feira de Outubro"),
     Listin(id: "L002", name: "Feira de Novembro"),
   ];
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +44,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 18),
               ),
             )
-          : ListView(
-              children: List.generate(
-                listListins.length,
-                (index) {
-                  Listin model = listListins[index];
-                  return ListTile(
-                    leading: const Icon(Icons.list_alt_rounded),
-                    title: Text(model.name),
-                    subtitle: Text(model.id),
-                  );
-                },
+          : RefreshIndicator(
+            onRefresh: () async{
+              return refresh();
+            
+            },
+            child: ListView(
+                children: List.generate(
+                  listListins.length,
+                  (index) {
+                    Listin model = listListins[index];
+                    return ListTile(
+                      onTap: (){
+                        print('clicou');
+                      },
+                      onLongPress: () { 
+                        print('segurou');
+                        showFormModal(model: model);
+                        },
+                      leading: const Icon(Icons.list_alt_rounded),
+                      title: Text(model.name),
+                      subtitle: Text(model.id),
+                    );
+                  },
+                ),
               ),
-            ),
+          ),
     );
   }
 
-  showFormModal() {
+  showFormModal({Listin? model}) {
     // Labels à serem mostradas no Modal
     String title = "Adicionar Listin";
     String confirmationButton = "Salvar";
@@ -62,6 +81,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Controlador do campo que receberá o nome do Listin
     TextEditingController nameController = TextEditingController();
+
+    // caso esteja editando
+    if(model !=null){
+      title = "Editando Listin";
+
+      nameController.text = model.name;
+
+    }
 
     // Função do Flutter que mostra o modal na tela
     showModalBottomSheet(
@@ -110,8 +137,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             id: const Uuid().v1(), 
                             name: nameController.text,);
                     
+                        //em caso de alteracão
+                        if (model != null){
+                          listin.id = model.id;
+                        
+                        
+                        }
 
                         firestore.collection("listins").doc(listin.id).set(listin.toMap());
+                       
+                       // Atualizar a Lista
+                      refresh();
+                       
                         Navigator.pop(context);
                      
                      
@@ -125,8 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-}
-
 void buttonSalvarListin(String nome) {
   print('clicou em salvar');
 
@@ -137,3 +172,20 @@ void buttonSalvarListin(String nome) {
                //       firestore.collection("listins").doc(listin.id).set(data);
 
 }
+
+  refresh() async{
+    List<Listin> temp = [];
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+       await firestore.collection("listins").get();
+             
+    for (var doc in snapshot.docs) {
+      temp.add(Listin.fromMap(doc.data()));
+    }
+
+    setState(() {
+      listListins = temp;
+    });
+  }
+}
+
+
