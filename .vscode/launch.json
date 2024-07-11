@@ -1,0 +1,23 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "S22 ultra",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId":"RQCT303V50A"
+          },
+          {
+              "name": "EmuladorAndroid",
+              "request": "launch",
+              "type": "dart",
+              "flutterMode": "debug",
+              "deviceId":"emulator-5554"
+            }
+    ]
+}
