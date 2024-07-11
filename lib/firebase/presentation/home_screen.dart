@@ -55,7 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   (index) {
                     Listin model = listListins[index];
                     return Dismissible(
-                      key: Key(model.id),
+                      key: ValueKey<Listin>(model),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        child: const Icon(Icons.delete, color: Colors.white,),
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 8),
+                      ),
+                      onDismissed: (direction){
+                          removeItem(model);
+                      },
                       child: ListTile(
                         onTap: (){
                           print('clicou');
@@ -189,6 +199,11 @@ void buttonSalvarListin(String nome) {
     setState(() {
       listListins = temp;
     });
+  }
+
+  void removeItem(Listin model) {
+    firestore.collection("listins").doc(model.id).delete();
+    refresh();
   }
 }
 
