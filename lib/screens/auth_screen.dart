@@ -1,4 +1,5 @@
 import 'package:bingo_jogador/_core/my_colors.dart';
+import 'package:bingo_jogador/components/show_snackbar.dart';
 import 'package:bingo_jogador/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,18 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
 
   AuthService _authService = AuthService();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _emailController.text ="fabio.alvaro@gmail.com";
+    _senhaController.text = "senha123";
+    _confirmaController.text = "senha123";
+    _nomeController.text = "Fabio Alvaro";
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +64,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         (isEntrando)
-                            ? "Bem vindo ao Listin!"
+                            ? "Bem vindo ao Bingo!"
                             : "Vamos começar?",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
@@ -92,43 +105,40 @@ class _AuthScreenState extends State<AuthScreen> {
                         return null;
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Visibility(
-                          visible: !isEntrando,
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                controller: _confirmaController,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  label: Text("Confirme a senha"),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.length < 4) {
-                                    return "Insira uma confirmação de senha válida.";
-                                  }
-                                  if (value != _senhaController.text) {
-                                    return "As senhas devem ser iguais.";
-                                  }
-                                  return null;
-                                },
+                    Visibility(
+                        visible: !isEntrando,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _confirmaController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                label: Text("Confirme a senha"),
                               ),
-                              TextFormField(
-                                controller: _nomeController,
-                                decoration: const InputDecoration(
-                                  label: Text("Nome"),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.length < 3) {
-                                    return "Insira um nome maior.";
-                                  }
-                                  return null;
-                                },
+                              validator: (value) {
+                                if (value == null || value.length < 4) {
+                                  return "Insira uma confirmação de senha válida.";
+                                }
+                                if (value != _senhaController.text) {
+                                  return "As senhas devem ser iguais.";
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormField(
+                              controller: _nomeController,
+                              decoration: const InputDecoration(
+                                label: Text("Nome"),
                               ),
-                            ],
-                          )),
-                    ),
+                              validator: (value) {
+                                if (value == null || value.length < 3) {
+                                  return "Insira um nome maior.";
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        )),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
@@ -185,8 +195,16 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   _criarUsuario(
-      {required String email, required String senha, required String nome}) {
+      {required String email, required String senha, required String nome}) async {
     print("Criar usuário $email, $senha, $nome");
-    _authService.cadastrarUsuario(email, senha, nome);
+    String? erro = await _authService.cadastrarUsuario(email, senha, nome);
+    if (erro == null) {
+ showSnackBar(
+            context: context,
+            mensagem: "Conta criada com sucesso!",
+            isErro: false);
+    }else{
+      showSnackBar(context: context, mensagem: erro);
+    }
   }
 }

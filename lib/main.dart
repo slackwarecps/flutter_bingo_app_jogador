@@ -1,4 +1,5 @@
-import 'package:bingo_jogador/authentication/screens/auth_screen.dart';
+
+import 'package:bingo_jogador/screens/auth_screen.dart';
 import 'package:bingo_jogador/screens/home_screen.dart';
 import 'package:bingo_jogador/screens/lista_sorteios_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
