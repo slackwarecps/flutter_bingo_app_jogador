@@ -1,8 +1,8 @@
 import 'package:bingo_jogador/firebase/models/listin.dart';
+import 'package:bingo_jogador/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    @override
+  @override
   void initState() {
     refresh();
     super.initState();
@@ -27,6 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Sair"),
+              onTap: () {
+                AuthService().deslogar();
+              },
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: const Text("Listin - Feira Colaborativa"),
       ),
@@ -45,11 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : RefreshIndicator(
-            onRefresh: () async{
-              return refresh();
-            
-            },
-            child: ListView(
+              onRefresh: () async {
+                return refresh();
+              },
+              child: ListView(
                 children: List.generate(
                   listListins.length,
                   (index) {
@@ -61,20 +73,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.red,
                         alignment: Alignment.centerRight,
                         padding: const EdgeInsets.only(right: 8),
-                        child: const Icon(Icons.delete, color: Colors.white,),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
                       ),
-                      onDismissed: (direction){
-                          removeItem(model);
+                      onDismissed: (direction) {
+                        removeItem(model);
                       },
                       child: ListTile(
-                        onTap: (){
+                        onTap: () {
                           print('clicou');
                         },
-                        onLongPress: () { 
+                        onLongPress: () {
                           print('segurou');
                           showFormModal(model: model);
-                          },
-                          
+                        },
                         leading: const Icon(Icons.list_alt_rounded),
                         title: Text(model.name),
                         subtitle: Text(model.id),
@@ -83,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-          ),
+            ),
     );
   }
 
@@ -97,11 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
     TextEditingController nameController = TextEditingController();
 
     // caso esteja editando
-    if(model !=null){
+    if (model != null) {
       title = "Editando Listin";
 
       nameController.text = model.name;
-
     }
 
     // Função do Flutter que mostra o modal na tela
@@ -146,26 +159,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   ElevatedButton(
                       onPressed: () {
                         //TODO: Implementar adição
-                       // buttonSalvarListin(nameController.text);
-                           Listin listin = Listin(
-                            id: const Uuid().v1(), 
-                            name: nameController.text,);
-                    
+                        // buttonSalvarListin(nameController.text);
+                        Listin listin = Listin(
+                          id: const Uuid().v1(),
+                          name: nameController.text,
+                        );
+
                         //em caso de alteracão
-                        if (model != null){
+                        if (model != null) {
                           listin.id = model.id;
-                        
-                        
                         }
 
-                        firestore.collection("listins").doc(listin.id).set(listin.toMap());
-                       
-                       // Atualizar a Lista
-                      refresh();
-                       
+                        firestore
+                            .collection("listins")
+                            .doc(listin.id)
+                            .set(listin.toMap());
+
+                        // Atualizar a Lista
+                        refresh();
+
                         Navigator.pop(context);
-                     
-                     
                       },
                       child: Text(confirmationButton)),
                 ],
@@ -176,22 +189,22 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-void buttonSalvarListin(String nome) {
-  print('clicou em salvar');
+
+  void buttonSalvarListin(String nome) {
+    print('clicou em salvar');
 
     Listin listin = Listin(
-                        id: const Uuid().v1(), 
-                        name: nome,
-                        );
-               //       firestore.collection("listins").doc(listin.id).set(data);
+      id: const Uuid().v1(),
+      name: nome,
+    );
+    //       firestore.collection("listins").doc(listin.id).set(data);
+  }
 
-}
-
-  refresh() async{
+  refresh() async {
     List<Listin> temp = [];
     QuerySnapshot<Map<String, dynamic>> snapshot =
-       await firestore.collection("listins").get();
-             
+        await firestore.collection("listins").get();
+
     for (var doc in snapshot.docs) {
       temp.add(Listin.fromMap(doc.data()));
     }
@@ -206,5 +219,3 @@ void buttonSalvarListin(String nome) {
     refresh();
   }
 }
-
-
