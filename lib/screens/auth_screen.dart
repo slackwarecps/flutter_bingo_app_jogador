@@ -190,8 +190,19 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   _entrarUsuario({required String email, required String senha}) {
+
+
     print("Entrar usuário $email, $senha");
-    _authService.entrarUsuario(email, senha);
+
+
+    _authService.entrarUsuario(email, senha).then((retorno){
+      if (retorno==null){
+        print('login ok');
+
+      }else{
+        showSnackBar(context: context, mensagem: 'Deu ruim $retorno');
+      }
+    });
   }
 
   _criarUsuario(
