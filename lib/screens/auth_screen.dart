@@ -97,7 +97,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     TextFormField(
                       controller: _senhaController,
                       obscureText: true,
-                      decoration: const InputDecoration(label: Text("Senha")),
+                      decoration: const InputDecoration(label: Text("Senha"),
+                      ),
                       validator: (value) {
                         if (value == null || value.length < 4) {
                           return "Insira uma senha válida.";
@@ -105,6 +106,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         return null;
                       },
                     ),
+                    Visibility(
+                      visible: isEntrando,
+                      child: TextButton(onPressed: (){
+                        esqueciMinhaSenhaClicado(email: _emailController.text);
+                      }, child: Text("Esqueci minha senha."))),
                     Visibility(
                         visible: !isEntrando,
                         child: Column(
@@ -218,4 +224,19 @@ class _AuthScreenState extends State<AuthScreen> {
       showSnackBar(context: context, mensagem: erro);
     }
   }
+  
+  void esqueciMinhaSenhaClicado ({required String email}) async{
+   await _authService.redefinirSenha(email).then((retorno){
+      if (retorno==null){
+        showSnackBar(context: context, mensagem: "Redefinição de Senha enviada com sucesso para seu email $email !!");
+      }else{
+        showSnackBar(context: context, mensagem: "Problema ao redefinir a senha. [$retorno]");
+      }
+      print("Deu certo!");
+    });
+
+    print('Esqueci minha senha');
+  }
+
+
 }

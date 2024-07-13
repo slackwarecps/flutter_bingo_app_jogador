@@ -5,6 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+
+
+
 entrarUsuario(String email, String senha) async {
   try {
     await _firebaseAuth.signInWithEmailAndPassword(email: email, password: senha);
@@ -38,5 +41,20 @@ Future<String?> cadastrarUsuario(String email, String senha, String nome) async 
   }
       return null;
 }
+
+
+  Future<String?> redefinirSenha(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      print('Email de redefinição de senha enviado com sucesso!');
+      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "user-not-found":
+          return "O email não está cadastrado.";
+      }
+      return e.code;
+    }
+  }
 
 }
