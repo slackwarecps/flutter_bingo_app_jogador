@@ -112,7 +112,7 @@ class RoteadorTelas extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             //esta logado
-            return HomeScreen();
+            return HomeScreen(user: snapshot.data!);
           } else {
             return const AuthScreen();
           }

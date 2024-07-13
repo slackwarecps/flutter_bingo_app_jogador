@@ -2,11 +2,13 @@ import 'package:bingo_jogador/firebase/models/listin.dart';
 import 'package:bingo_jogador/screens/show_senha_confirmacao_dialog.dart';
 import 'package:bingo_jogador/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final User user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -31,6 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: ListView(
           children: [
+            UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(
+                      'https://i.ibb.co/xGqDtRR/gato-chorando.jpg'),
+                ),
+                accountName: Text((widget.user.displayName != null)
+                    ? widget.user.displayName!
+                    : "Toinho"),
+                accountEmail: Text(widget.user.email!)),
             ListTile(
               leading: Icon(
                 Icons.delete,
