@@ -3,7 +3,6 @@ import 'package:bingo_jogador/components/show_snackbar.dart';
 import 'package:bingo_jogador/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -23,17 +22,15 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final AuthService _authService = AuthService();
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _emailController.text ="fabio.alvaro@gmail.com";
+    _emailController.text = "fabio.alvaro@gmail.com";
     _senhaController.text = "senha123";
     _confirmaController.text = "senha123";
     _nomeController.text = "Fabio Alvaro";
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        (isEntrando)
-                            ? "Bem vindo ao Bingo!"
-                            : "Vamos começar?",
+                        (isEntrando) ? "Bem vindo ao Bingo!" : "Vamos começar?",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 24,
@@ -97,7 +92,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     TextFormField(
                       controller: _senhaController,
                       obscureText: true,
-                      decoration: const InputDecoration(label: Text("Senha"),
+                      decoration: const InputDecoration(
+                        label: Text("Senha"),
                       ),
                       validator: (value) {
                         if (value == null || value.length < 4) {
@@ -107,10 +103,13 @@ class _AuthScreenState extends State<AuthScreen> {
                       },
                     ),
                     Visibility(
-                      visible: isEntrando,
-                      child: TextButton(onPressed: (){
-                        esqueciMinhaSenhaClicado(email: _emailController.text);
-                      }, child: const Text("Esqueci minha senha."))),
+                        visible: isEntrando,
+                        child: TextButton(
+                            onPressed: () {
+                              esqueciMinhaSenhaClicado(
+                                  email: _emailController.text);
+                            },
+                            child: const Text("Esqueci minha senha."))),
                     Visibility(
                         visible: !isEntrando,
                         child: Column(
@@ -196,51 +195,51 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   _entrarUsuario({required String email, required String senha}) {
-
-
     print("Entrar usuário $email, $senha");
 
-
-    _authService.entrarUsuario(email, senha).then((retorno){
-      if (retorno==null){
+    _authService.entrarUsuario(email, senha).then((retorno) {
+      if (retorno == null) {
         print('login ok');
-
-      }else{
-        showSnackBar(context: context, mensagem: 'Deu ruim $retorno');
+      } else {
+        showSnackBar(
+            context: context, mensagem: 'Erro ao fazer login.  [$retorno]');
       }
     });
   }
 
   _criarUsuario(
-      {required String email, required String senha, required String nome}) async {
+      {required String email,
+      required String senha,
+      required String nome}) async {
     print("Criar usuário $email, $senha, $nome");
     String? erro = await _authService.cadastrarUsuario(email, senha, nome);
     if (erro == null) {
- showSnackBar(
-            context: context,
-            mensagem: "Conta criada com sucesso!",
-            isErro: false);
-    }else{
-      showSnackBar(context: context, mensagem: erro,isErro: true);
+      showSnackBar(
+          context: context,
+          mensagem: "Conta criada com sucesso!",
+          isErro: false);
+    } else {
+      showSnackBar(context: context, mensagem: erro, isErro: true);
     }
   }
-  
-  void esqueciMinhaSenhaClicado ({required String email}) async{
-   await _authService.redefinirSenha(email).then((retorno){
-      if (retorno==null){
-        showSnackBar(context: context, 
-        mensagem: "Redefinição de Senha enviada com sucesso para seu email $email !!",
-        isErro: false);
-      }else{
-        showSnackBar(context: context, 
-        mensagem: "Problema ao redefinir a senha. [$retorno]",
-        isErro: true);
+
+  void esqueciMinhaSenhaClicado({required String email}) async {
+    await _authService.redefinirSenha(email).then((retorno) {
+      if (retorno == null) {
+        showSnackBar(
+            context: context,
+            mensagem:
+                "Redefinição de Senha enviada com sucesso para seu email $email !!",
+            isErro: false);
+      } else {
+        showSnackBar(
+            context: context,
+            mensagem: "Problema ao redefinir a senha. [$retorno]",
+            isErro: true);
       }
       print("Deu certo!");
     });
 
     print('Esqueci minha senha');
   }
-
-
 }

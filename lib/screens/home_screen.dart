@@ -1,4 +1,5 @@
 import 'package:bingo_jogador/firebase/models/listin.dart';
+import 'package:bingo_jogador/screens/show_senha_confirmacao_dialog.dart';
 import 'package:bingo_jogador/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,16 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: ListView(
           children: [
+            ListTile(
+              leading: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              title: Text("Remover conta"),
+              onTap: () {
+                showSenhaConfirmacao(context: context, email: "");
+              },
+            ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text("Sair"),
