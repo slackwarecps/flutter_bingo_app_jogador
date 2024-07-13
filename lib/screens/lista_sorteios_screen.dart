@@ -18,7 +18,7 @@ class _ListaSorteioScreenState extends State<ListaSorteioScreen> {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20.0),
-        children: [  
+        children: const [  
            
           Card(
             child: ListTile(

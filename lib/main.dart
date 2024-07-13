@@ -1,7 +1,5 @@
 
 import 'package:bingo_jogador/screens/auth_screen.dart';
-import 'package:bingo_jogador/screens/home_screen.dart';
-import 'package:bingo_jogador/screens/lista_sorteios_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

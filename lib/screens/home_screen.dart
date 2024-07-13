@@ -59,9 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       direction: DismissDirection.endToStart,
                       background: Container(
                         color: Colors.red,
-                        child: const Icon(Icons.delete, color: Colors.white,),
                         alignment: Alignment.centerRight,
                         padding: const EdgeInsets.only(right: 8),
+                        child: const Icon(Icons.delete, color: Colors.white,),
                       ),
                       onDismissed: (direction){
                           removeItem(model);

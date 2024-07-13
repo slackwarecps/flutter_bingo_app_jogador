@@ -21,7 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
 
 
   @override
@@ -110,7 +110,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       visible: isEntrando,
                       child: TextButton(onPressed: (){
                         esqueciMinhaSenhaClicado(email: _emailController.text);
-                      }, child: Text("Esqueci minha senha."))),
+                      }, child: const Text("Esqueci minha senha."))),
                     Visibility(
                         visible: !isEntrando,
                         child: Column(
