@@ -221,16 +221,20 @@ class _AuthScreenState extends State<AuthScreen> {
             mensagem: "Conta criada com sucesso!",
             isErro: false);
     }else{
-      showSnackBar(context: context, mensagem: erro);
+      showSnackBar(context: context, mensagem: erro,isErro: true);
     }
   }
   
   void esqueciMinhaSenhaClicado ({required String email}) async{
    await _authService.redefinirSenha(email).then((retorno){
       if (retorno==null){
-        showSnackBar(context: context, mensagem: "Redefinição de Senha enviada com sucesso para seu email $email !!");
+        showSnackBar(context: context, 
+        mensagem: "Redefinição de Senha enviada com sucesso para seu email $email !!",
+        isErro: false);
       }else{
-        showSnackBar(context: context, mensagem: "Problema ao redefinir a senha. [$retorno]");
+        showSnackBar(context: context, 
+        mensagem: "Problema ao redefinir a senha. [$retorno]",
+        isErro: true);
       }
       print("Deu certo!");
     });
