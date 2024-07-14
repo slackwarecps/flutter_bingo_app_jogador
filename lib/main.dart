@@ -1,5 +1,6 @@
 import 'package:bingo_jogador/screens/auth_screen.dart';
 import 'package:bingo_jogador/screens/home_screen.dart';
+import 'package:bingo_jogador/screens/jogo_simples_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class RoteadorTelas extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             //esta logado
-            return HomeScreen(user: snapshot.data!);
+            return JogoSimplesScreen(user: snapshot.data!);
           } else {
             return const AuthScreen();
           }

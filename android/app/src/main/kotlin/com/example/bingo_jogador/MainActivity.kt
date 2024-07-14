@@ -1,4 +1,4 @@
-package com.example.bingo_jogador
+package com.fabioalvaro.bingojogador
 
 import io.flutter.embedding.android.FlutterActivity
 
