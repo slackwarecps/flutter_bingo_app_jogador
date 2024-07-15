@@ -1,4 +1,5 @@
-import 'package:bingo_jogador/screens/linha.dart';
+import 'package:bingo_jogador/screens/cartela/linha.dart';
+import 'package:bingo_jogador/screens/cartela/linha_bingo.dart';
 import 'package:flutter/material.dart';
 
 class Tabela extends StatelessWidget {
@@ -9,7 +10,7 @@ class Tabela extends StatelessWidget {
     return   Column(
   
       children: [
-     
+     LinhaBingo(),
         Linha(),
          Linha(),
           Linha(),

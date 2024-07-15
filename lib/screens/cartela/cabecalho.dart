@@ -30,15 +30,15 @@ class Cabecalho extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("DATA: 20/02/2022"),
+              child: Text("DATA: 20/02/2022",style: TextStyle(fontSize: 18),),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("N: 0148"),
+              child: Text("N: 0148",style: TextStyle(fontSize: 18),),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("RODADA 2525"),
+              child: Text("RODADA: 2525",style: TextStyle(fontSize: 18),),
             ),
           ],
         ),

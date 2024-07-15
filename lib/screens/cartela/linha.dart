@@ -9,17 +9,18 @@ class Linha
   Widget build(BuildContext context) {
     return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
+
           children: [
-            Container( 
+            Container( alignment: Alignment.center,  
              
                margin: const EdgeInsets.all(10.0),
                 color: Colors.white,
                 width: 48.0,
                 height: 48.0,
-                child: Text("3"),
+                child: Text("3", style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),),
+  
                 ),
-                Container(  
+                Container( alignment: Alignment.center,   
                   margin: const EdgeInsets.all(10.0),
                 color: Colors.green,
                 width: 48.0,
@@ -28,20 +29,20 @@ class Linha
                 padding: EdgeInsets.all( 5),
                 
                 ),
-                Container(  margin: const EdgeInsets.all(10.0),
+                Container( alignment: Alignment.center,   margin: const EdgeInsets.all(10.0),
                 color:  Colors.white,
                 width: 48.0,
-                height: 48.0,child: Text("32"),
+                height: 48.0,child: Text("32", style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),),
                 ),
-                Container(  margin: const EdgeInsets.all(10.0),
+                Container(alignment: Alignment.center,    margin: const EdgeInsets.all(10.0),
                 color: Colors.white,
                 width: 48.0,
-                height: 48.0,child: Text("46"),
+                height: 48.0,child: Text("46", style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),),
                 ),
-                Container(  margin: const EdgeInsets.all(10.0),
+                Container( alignment: Alignment.center,   margin: const EdgeInsets.all(10.0),
                 color:  Colors.white,
                 width: 48.0,
-                height: 48.0,child: Text("65"),
+                height: 48.0,child: Text("65", style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),),
                 ),
           ],
         );
