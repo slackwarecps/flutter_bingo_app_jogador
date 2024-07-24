@@ -5,7 +5,7 @@ import 'package:bingojogador/models/event.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String baseUrl = 'http://192.168.1.103:8080/api';
+const String baseUrl = 'https://bingo-brasil-sorteio-core-prd.up.railway.app/sorteio-core/v1';
 
 // Busca todos os eventos cadastrados
 Future<List<Event>> getAllEvents() async {
@@ -23,8 +23,9 @@ Future<List<Event>> getAllEvents() async {
 
 // Cadastra um novo dispositivo na aplicação web
 void sendDevice(Device device) async {
+  print("Sending device to server ${device.token}");
   final response = await http.post(
-    Uri.parse('$baseUrl/devices'),
+    Uri.parse('$baseUrl/push/devices'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

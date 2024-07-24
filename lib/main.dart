@@ -1,13 +1,19 @@
+import 'dart:io';
+
+import 'package:bingojogador/models/device.dart';
 import 'package:bingojogador/screens/auth_screen.dart';
 import 'package:bingojogador/screens/home_jogador.dart';
 import 'package:bingojogador/screens/home_screen.dart';
 import 'package:bingojogador/screens/jogo_simples_screen.dart';
+import 'package:bingojogador/services/web.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,11 +34,51 @@ void main() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   String? token = await messaging.getToken();
-  print('TOKEN: $token');
+  
   logger.i('TOKEN: $token');
-
+ setPushToken(token);
 
  runApp(const MyApp());
+}
+
+//Envia o token para o servidor
+void setPushToken(String? token) async {
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? prefsToken = prefs.getString('pushToken');
+  bool? prefsSent = prefs.getBool('tokenSent');
+
+  print('Prefs token - $prefsToken');
+
+  if(prefsToken != token || (prefsToken == token && prefsSent == false)) {
+    print('Enviando o token para o servidor');
+
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    String? brand;
+    String? model;
+
+    // Mostrar os vários tipos de tratamento que existem
+    // https://github.com/fluttercommunity/plus_plugins/blob/main/packages/device_info_plus/device_info_plus/example/lib/main.dart
+
+    if(Platform.isAndroid) {
+
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      print('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
+
+      model = androidInfo.model;
+      brand = androidInfo.brand;
+    } else {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      print('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"
+
+      model = iosInfo.utsname.machine;
+      brand = 'Apple';
+    }
+
+
+    Device device = Device(token: token, brand: brand, model: model);
+    sendDevice(device);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -123,4 +169,7 @@ class RoteadorTelas extends StatelessWidget {
       },
     );
   }
+
+
+
 }
