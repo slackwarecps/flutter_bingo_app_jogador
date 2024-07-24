@@ -1,5 +1,5 @@
-import 'package:bingo_jogador/screens/cartela/cabecalho.dart';
-import 'package:bingo_jogador/screens/cartela/tabela.dart';
+import 'package:bingojogador/screens/cartela/cabecalho.dart';
+import 'package:bingojogador/screens/cartela/tabela.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-package com.fabioalvaro.bingojogador
+package br.com.fabioalvaro.bingojogador
 
 import io.flutter.embedding.android.FlutterActivity
 

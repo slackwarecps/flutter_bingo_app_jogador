@@ -1,4 +1,4 @@
-import 'package:bingo_jogador/services/auth_service.dart';
+import 'package:bingojogador/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 showSenhaConfirmacao({

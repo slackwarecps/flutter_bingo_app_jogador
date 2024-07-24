@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '451748288695',
     projectId: 'bingo-app-jogador',
     storageBucket: 'bingo-app-jogador.appspot.com',
-    iosBundleId: 'com.example.bingoJogador',
+    iosBundleId: 'br.com.fabioalvaro.bingoJogador',
   );
 
 }

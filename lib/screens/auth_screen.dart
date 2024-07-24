@@ -1,6 +1,6 @@
-import 'package:bingo_jogador/_core/my_colors.dart';
-import 'package:bingo_jogador/components/show_snackbar.dart';
-import 'package:bingo_jogador/services/auth_service.dart';
+import 'package:bingojogador/_core/my_colors.dart';
+import 'package:bingojogador/components/show_snackbar.dart';
+import 'package:bingojogador/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:bingo_jogador/firebase/models/listin.dart';
-import 'package:bingo_jogador/screens/show_senha_confirmacao_dialog.dart';
-import 'package:bingo_jogador/services/auth_service.dart';
+import 'package:bingojogador/firebase/models/listin.dart';
+import 'package:bingojogador/screens/show_senha_confirmacao_dialog.dart';
+import 'package:bingojogador/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
