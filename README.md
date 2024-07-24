@@ -1,4 +1,4 @@
-# bingo_jogador
+# bingojogador
 
 A new Flutter project.
 

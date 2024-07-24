@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD8ji6kk_yzvYVCQSEy34bM62nl6jENUDA',
-    appId: '1:451748288695:android:c38a39e811422636c69532',
+    appId: '1:451748288695:android:b951231aad7e88b1c69532',
     messagingSenderId: '451748288695',
     projectId: 'bingo-app-jogador',
     storageBucket: 'bingo-app-jogador.appspot.com',
@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '451748288695',
     projectId: 'bingo-app-jogador',
     storageBucket: 'bingo-app-jogador.appspot.com',
-    iosBundleId: 'br.com.fabioalvaro.bingoJogador',
+    iosBundleId: 'com.example.bingoJogador',
   );
 
 }

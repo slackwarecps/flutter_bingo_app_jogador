@@ -1,6 +1,6 @@
 {
-    "name": "bingo_jogador",
-    "short_name": "bingo_jogador",
+    "name": "bingojogador",
+    "short_name": "bingojogador",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
