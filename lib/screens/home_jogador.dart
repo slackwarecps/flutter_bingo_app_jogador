@@ -40,6 +40,13 @@ class _HomeJogadorScreenState extends State<HomeJogadorScreen> {
 
   void button1Clicked() {
      logger.i('button1:Clicou no botão');
-     
+     enviaToken('ola token');
+
+  }
+
+  void enviaToken(String? token) {
+     logger.i('>> enviaToken');
+
+
   }
 }
