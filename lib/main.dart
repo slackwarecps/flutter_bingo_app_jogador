@@ -7,9 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:logger/logger.dart';
 import 'firebase_options.dart';
 
 void main() async {
+
+
+  final Logger logger = Logger();
   //garante que o firebase esteja inicializado
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -25,6 +29,7 @@ void main() async {
 
   String? token = await messaging.getToken();
   print('TOKEN: $token');
+  logger.i('TOKEN: $token');
 
 
  runApp(const MyApp());
@@ -32,6 +37,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
