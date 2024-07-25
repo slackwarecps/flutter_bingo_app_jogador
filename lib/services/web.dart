@@ -10,7 +10,7 @@ const String baseUrl = 'https://bingo-brasil-sorteio-core-prd.up.railway.app/sor
 // Busca todos os eventos cadastrados
 Future<List<Event>> getAllEvents() async {
   final response = await http
-      .get(Uri.parse('$baseUrl/events'));
+      .get(Uri.parse('$baseUrl/push/events'));
 
   if (response.statusCode == 200) {
     final List<dynamic> decodedJson = jsonDecode(response.body);

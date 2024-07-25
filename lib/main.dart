@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bingojogador/models/device.dart';
 import 'package:bingojogador/screens/auth_screen.dart';
+import 'package:bingojogador/screens/events/events_screen.dart';
 import 'package:bingojogador/screens/home_jogador.dart';
 import 'package:bingojogador/screens/home_screen.dart';
 import 'package:bingojogador/screens/jogo_simples_screen.dart';
@@ -36,9 +37,9 @@ void main() async {
   String? token = await messaging.getToken();
   
   logger.i('TOKEN: $token');
- setPushToken(token);
+  setPushToken(token);
 
- runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 //Envia o token para o servidor
@@ -161,7 +162,7 @@ class RoteadorTelas extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             //esta logado
-            return HomeJogadorScreen(user: snapshot.data!);
+            return EventsScreen(user: snapshot.data!);
           } else {
             return const AuthScreen();
           }
