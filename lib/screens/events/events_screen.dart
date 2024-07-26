@@ -18,7 +18,7 @@ class _EventsScreenState extends State<EventsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dev meetups'),
+        title: Text('Dev meetups v260724_1801'),
         backgroundColor: Colors.purple,
       ),
       body: FutureBuilder(

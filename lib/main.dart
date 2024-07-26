@@ -17,6 +17,10 @@ import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
+
+// chave global para navegar entre as telas
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
 
 
@@ -83,6 +87,16 @@ void _startPushNotificationHandler(FirebaseMessaging messaging) async{
 
     //Quando o app estiver fechado
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+        // Terminou
+    var dados_recebidos = await FirebaseMessaging.instance.getInitialMessage();
+    if (dados_recebidos!.data.isNotEmpty) {
+      if (dados_recebidos.data['message'] != null) {
+        showMyDialog(dados_recebidos.data['message']);
+
+      }
+
+    }
 }
 
 //Envia o token para o servidor
@@ -124,6 +138,48 @@ void setPushToken(String? token) async {
     sendDevice(device);
   }
 }
+
+//listener para mensagens em background
+// quando voltar a funcionar, verificar se o token mudou e enviar para o servidor
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
+  
+  print("---------------------------------");
+  print('[main#autorizouMensagem] Mensagem recebida em background: ${message.notification}');
+  return Future<void>.value();
+
+}
+
+
+
+void showMyDialog(String message){
+  //botao
+  Widget okButton = OutlinedButton(
+    onPressed: () {
+      //Passa o contexto do navigatorKey que vai ser preenchido no futuro.
+      Navigator.pop(navigatorKey.currentContext!);
+    },
+    child: Text('OK'),
+  );
+
+  AlertDialog alerta = AlertDialog(
+    title: Text('Promoção Imperdível'),
+    content: Text(message),
+    actions: [
+      okButton,
+    ],
+  );
+
+  //Empurrando o contexto pra dentro.
+  showDialog(context: navigatorKey.currentContext!, builder: (BuildContext context){
+    return alerta;
+
+  });
+
+}
+
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -218,12 +274,3 @@ class RoteadorTelas extends StatelessWidget {
 
 }
 
-//listener para mensagens em background
-// quando voltar a funcionar, verificar se o token mudou e enviar para o servidor
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
-  
-  print("---------------------------------");
-  print('[main#autorizouMensagem] Mensagem recebida em background: ${message.notification}');
-  return Future<void>.value();
-
-}
