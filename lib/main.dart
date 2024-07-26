@@ -20,7 +20,7 @@ import 'firebase_options.dart';
 void main() async {
 
 
-  final Logger logger = Logger();
+
   //garante que o firebase esteja inicializado
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,10 +36,53 @@ void main() async {
 
   String? token = await messaging.getToken();
   
-  logger.i('TOKEN: $token');
-  setPushToken(token);
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+ // Verifica se o usuario autorizou as mensagens PUSH
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('[main#autorizouMensagem] SIM PERMITIU');
+     _startPushNotificationHandler(messaging);
+  } else if (settings.authorizationStatus==AuthorizationStatus.provisional) {
+
+    print('[main#autorizouMensagem] PERMITIU PROVISORIAMENTE ');
+    _startPushNotificationHandler(messaging);
+  }else {
+    print('[main#autorizouMensagem] NAO PERMITIU - NEGADA!!!');
+
+  }
+  
+
+ 
 
   runApp(const MyApp());
+}
+
+void _startPushNotificationHandler(FirebaseMessaging messaging) async{
+      final Logger logger = Logger();
+    String? token = await messaging.getToken();
+    logger.i('[#startPushNotificationHandler] TOKEN: $token');
+    setPushToken(token);
+
+    //Quando o app estiver aberto
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      logger.i('[#startPushNotificationHandler] Recebeu foreground (app Aberto)!');
+      print('dados da mensagem: ${message.data}');
+
+      if (message.notification != null) {
+        print('msg tambem veio com uma notificacao: ${message.notification}');
+      }
+    });
+
+    //Quando o app estiver fechado
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 }
 
 //Envia o token para o servidor
@@ -172,5 +215,15 @@ class RoteadorTelas extends StatelessWidget {
   }
 
 
+
+}
+
+//listener para mensagens em background
+// quando voltar a funcionar, verificar se o token mudou e enviar para o servidor
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
+  
+  print("---------------------------------");
+  print('[main#autorizouMensagem] Mensagem recebida em background: ${message.notification}');
+  return Future<void>.value();
 
 }
