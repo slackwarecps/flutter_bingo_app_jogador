@@ -1,5 +1,5 @@
-import 'package:bingojogador/_core/my_colors.dart';
-import 'package:bingojogador/components/show_snackbar.dart';
+import 'package:bingojogador/utils/_core/my_colors.dart';
+import 'package:bingojogador/screens/components/show_snackbar.dart';
 import 'package:bingojogador/services/auth_service.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../firebase/models/produto.dart';
+import '../../../../models/firebase/models/produto.dart';
 
 class ListTileProduto extends StatelessWidget {
   final String listinId;

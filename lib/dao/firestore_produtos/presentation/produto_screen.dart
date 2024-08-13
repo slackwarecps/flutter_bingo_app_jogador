@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bingojogador/firebase/models/listin.dart';
-import 'package:bingojogador/firebase/models/produto.dart';
+import 'package:bingojogador/models/firebase/models/listin.dart';
+import 'package:bingojogador/models/firebase/models/produto.dart';
 
-import 'package:bingojogador/helpers/enum_order.dart';
+import 'package:bingojogador/models/enum_order.dart';
 import 'package:bingojogador/services/produto_service.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bingojogador/firebase/models/produto.dart';
-import 'package:bingojogador/helpers/enum_order.dart';
+import 'package:bingojogador/models/firebase/models/produto.dart';
+import 'package:bingojogador/models/enum_order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

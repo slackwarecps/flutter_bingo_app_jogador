@@ -1,4 +1,4 @@
-import 'package:bingojogador/firebase/models/listin.dart';
+import 'package:bingojogador/models/firebase/models/listin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,4 +1,4 @@
-import 'package:bingojogador/firebase/models/listin.dart';
+import 'package:bingojogador/models/firebase/models/listin.dart';
 import 'package:bingojogador/screens/show_senha_confirmacao_dialog.dart';
 import 'package:bingojogador/services/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
