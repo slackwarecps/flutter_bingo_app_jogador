@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bingojogador/models/device.dart';
 import 'package:bingojogador/screens/auth_screen.dart';
 import 'package:bingojogador/screens/events/events_screen.dart';
-import 'package:bingojogador/screens/home_jogador.dart';
+import 'package:bingojogador/screens/home/home_jogador.dart';
 import 'package:bingojogador/screens/home_screen.dart';
 import 'package:bingojogador/screens/jogo_simples_screen.dart';
 import 'package:bingojogador/services/web.dart';
@@ -216,7 +216,7 @@ class RoteadorTelas extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             //esta logado
-            return EventsScreen(user: snapshot.data!);
+            return HomeJogadorScreen(user: snapshot.data!);
           } else {
             return const AuthScreen();
           }
